@@ -23,8 +23,8 @@ COPY conf/hdfs-site.xml ${HADOOP_HOME}/conf
 WORKDIR /opt/apache-hive-${HIVE_VERSION}-bin/aux-lib/
 RUN wget https://repo1.maven.org/maven2/org/apache/hudi/hudi-hadoop-mr/0.7.0/hudi-hadoop-mr-0.7.0.jar
 RUN wget https://repo1.maven.org/maven2/org/apache/hudi/hudi-utilities-bundle_2.12/0.7.0/hudi-utilities-bundle_2.12-0.7.0.jar
-RUN cp hudi-hadoop-mr-0.7.0.jar ${HADOOP_HOME}/lib/
-RUN cp hudi-utilities-bundle_2.12-0.7.0.jar ${HADOOP_HOME}/lib/
+RUN cp hudi-hadoop-mr-0.7.0.jar ${HIVE_HOME}/lib/
+RUN cp hudi-utilities-bundle_2.12-0.7.0.jar ${HIVE_HOME}/lib/
 
 ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/tools/lib/aws-java-sdk-bundle-${AWS_SDK_VERSION}.jar:${HADOOP_HOME}/share/hadoop/tools/lib/hadoop-aws-${HADOOP_VERSION}.jar
 ENV PATH=${HIVE_HOME}/bin:${PATH}
