@@ -9,6 +9,10 @@
         <value>false</value>
     </property>
     <property>
+        <name>hive.input.format</name>
+        <value>org.apache.hudi.hadoop.HoodieParquetInputFormat</value>
+    </property>
+    <property>
         <name>javax.jdo.option.ConnectionDriverName</name>
         <value>com.mysql.jdbc.Driver</value>
     </property>
@@ -26,11 +30,11 @@
     </property>
     <property>
         <name>fs.s3a.access.key</name>
-        <value>[YOUR_ACCESS_KEY]</value>
+        <value>dud</value>
     </property>
     <property>
         <name>fs.s3a.secret.key</name>
-        <value>[YOUR_SECRET_KEY]</value>
+        <value>dud</value>
     </property>
     <!--    <property>-->
     <!--        <name>fs.s3a.endpoint</name>-->

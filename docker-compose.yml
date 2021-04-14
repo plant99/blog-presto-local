@@ -16,6 +16,8 @@ services:
      - ./etc/jvm.config:/opt/presto-server/etc/jvm.config
   hive:
     build: hive
+    ports:
+    - 10000:10000
     environment:
       DB_URI: mariadb:3306
     depends_on:

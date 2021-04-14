@@ -7,6 +7,7 @@ ENV HIVE_VERSION=3.1.2
 ENV AWS_SDK_VERSION=1.11.375
 ENV HADOOP_HOME=/opt/hadoop-${HADOOP_VERSION}
 ENV HIVE_HOME=/opt/apache-hive-${HIVE_VERSION}-bin
+ENV HIVE_AUX_JARS_PATH=/opt/apache-hive-${HIVE_VERSION}-bin/aux-lib/
 
 RUN curl -sSL https://www.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz | tar zxf -
 RUN curl -sSL https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf -
@@ -18,6 +19,12 @@ RUN apt-get update -y && apt-get install -y netcat procps
 COPY scripts/entrypoint.sh scripts/wait-for /usr/local/bin/
 COPY conf/hive-site.xml ${HIVE_HOME}/conf
 COPY conf/hdfs-site.xml ${HADOOP_HOME}/conf
+
+WORKDIR /opt/apache-hive-${HIVE_VERSION}-bin/aux-lib/
+RUN wget https://repo1.maven.org/maven2/org/apache/hudi/hudi-hadoop-mr/0.7.0/hudi-hadoop-mr-0.7.0.jar
+RUN wget https://repo1.maven.org/maven2/org/apache/hudi/hudi-utilities-bundle_2.12/0.7.0/hudi-utilities-bundle_2.12-0.7.0.jar
+RUN cp hudi-hadoop-mr-0.7.0.jar ${HADOOP_HOME}/lib/
+RUN cp hudi-utilities-bundle_2.12-0.7.0.jar ${HADOOP_HOME}/lib/
 
 ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/tools/lib/aws-java-sdk-bundle-${AWS_SDK_VERSION}.jar:${HADOOP_HOME}/share/hadoop/tools/lib/hadoop-aws-${HADOOP_VERSION}.jar
 ENV PATH=${HIVE_HOME}/bin:${PATH}
